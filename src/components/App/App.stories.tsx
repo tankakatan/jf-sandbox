@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { App } from './App';
 
+import '../../index.css';
+
 const meta = {
   component: App,
   argTypes: {

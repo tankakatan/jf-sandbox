@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+.pnpm/
+
+# production
+/dist
+
+# misc
+.DS_Store
+.env*
+*.local
+
+# Vite
+.vite
+
+# Storybook
+storybook-static/
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+Thumbs.db 

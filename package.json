@@ -1,0 +1,30 @@
+{
+  "name": "tools-test",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "vite src",
+    "build": "vite build src",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ark-ui/react": "^5.15.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "classname": "^0.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^9.0.13",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "storybook": "^9.0.13",
+    "vite": "^7.0.0"
+  }
+}

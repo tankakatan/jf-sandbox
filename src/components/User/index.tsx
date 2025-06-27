@@ -1,9 +1,9 @@
-import {type UserType } from '../UserList'
+import type { UserType } from '../UserList'
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 export default function User({ user }: { user: UserType }) {
-  const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleEdit = () => { };
+  const handleDelete = () => { };
 
   return (
     <div className="bg-white rounded-xl shadow p-6 flex items-center justify-between gap-4">
@@ -34,4 +34,4 @@ export default function User({ user }: { user: UserType }) {
       </div>
     </div>
   )
-} 
+}

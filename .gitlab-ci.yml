@@ -6,7 +6,7 @@ stages:
 
 default:
   tags:
-    - shared
+    - k8s-test
 
 cache:
   paths:

@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "vite src",
-    "build": "vite build src",
+    "start": "vite",
+    "build": "tsc -b && vite build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -18,12 +18,14 @@
     "classname": "^0.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@storybook/react-vite": "^9.0.13",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
     "storybook": "^9.0.13",
     "vite": "^7.0.0"
   }

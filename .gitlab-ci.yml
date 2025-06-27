@@ -1,0 +1,33 @@
+image: node:20
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+    - .pnpm-store
+
+before_script:
+  - corepack enable
+  - corepack prepare pnpm@latest --activate
+  - pnpm install --frozen-lockfile
+
+build:
+  stage: build
+  script:
+    - pnpm build
+  artifacts:
+    paths:
+      - dist
+
+pages:
+  stage: deploy
+  script:
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main 

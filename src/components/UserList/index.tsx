@@ -1,3 +1,5 @@
+import { createListCollection } from "@ark-ui/react/collection";
+import { ark } from "@ark-ui/react/factory";
 import User from "../User";
 
 export interface UserType {
@@ -9,11 +11,16 @@ export interface UserType {
 }
 
 export default function UserList({ users }: { users: UserType[] }) {
+  const collection = createListCollection({
+    items: users,
+    itemToString: (i) => String(i.id),
+    itemToValue: (i) => String(i.id),
+  });
   return (
-    <div className="flex flex-col gap-4">
-      {users.map((user) => (
+    <ark.div className="flex flex-col gap-4">
+      {collection.items.map((user) => (
         <User key={user.id} user={user} />
       ))}
-    </div>
+    </ark.div>
   );
 }

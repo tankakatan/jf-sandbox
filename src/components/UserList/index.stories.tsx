@@ -12,6 +12,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    users: []
+    users: [{
+      id: 0,
+      firstName: 'John',
+      lastName: 'Connor',
+      region: 'US',
+      isActive: true,
+    }]
   }
 };

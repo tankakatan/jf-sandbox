@@ -1,10 +1,28 @@
-import UserList from '../UserList'
+import UserList from "../UserList";
 
 const users = [
-  { id: 1, firstName: 'Alice', lastName: 'Smith', region: 'Europe', isActive: true },
-  { id: 2, firstName: 'Bob', lastName: 'Johnson', region: 'Asia', isActive: false },
-  { id: 3, firstName: 'Charlie', lastName: 'Brown', region: 'America', isActive: true },
-]
+  {
+    id: 1,
+    firstName: "Alice",
+    lastName: "Smith",
+    region: "Europe",
+    isActive: true,
+  },
+  {
+    id: 2,
+    firstName: "Bob",
+    lastName: "Johnson",
+    region: "Asia",
+    isActive: false,
+  },
+  {
+    id: 3,
+    firstName: "Charlie",
+    lastName: "Brown",
+    region: "America",
+    isActive: true,
+  },
+];
 
 export default function App() {
   return (
@@ -13,5 +31,5 @@ export default function App() {
         <UserList users={users} />
       </div>
     </div>
-  )
-} 
+  );
+}

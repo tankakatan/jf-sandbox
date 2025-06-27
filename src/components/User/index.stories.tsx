@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Index from './index';
+import Index from "./index";
 
 const meta = {
   component: Index,
@@ -14,10 +14,10 @@ export const Default: Story = {
   args: {
     user: {
       id: 0,
-      firstName: 'John',
-      lastName: 'Connor',
-      region: 'US',
+      firstName: "John",
+      lastName: "Connor",
+      region: "US",
       isActive: true,
-    }
-  }
+    },
+  },
 };

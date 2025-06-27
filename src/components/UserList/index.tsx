@@ -1,4 +1,4 @@
-import User from '../User'
+import User from "../User";
 
 export interface UserType {
   id: number;
@@ -11,9 +11,9 @@ export interface UserType {
 export default function UserList({ users }: { users: UserType[] }) {
   return (
     <div className="flex flex-col gap-4">
-      {users.map(user => (
+      {users.map((user) => (
         <User key={user.id} user={user} />
       ))}
     </div>
-  )
-} 
+  );
+}

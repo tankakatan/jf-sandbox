@@ -1,9 +1,6 @@
 import { Dialog, Portal } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useDeleteUser, useUserById } from "../../atoms/users";
 import UserForm from "../UserForm";

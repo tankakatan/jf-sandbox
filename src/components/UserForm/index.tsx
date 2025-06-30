@@ -1,12 +1,12 @@
 import { createListCollection, Field, Select } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
 import {
-	CheckIcon,
-	ChevronUpDownIcon,
-	XMarkIcon,
+  CheckIcon,
+  ChevronUpDownIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import cx from "classnames";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import type { User as UserType } from "../../@types";
 import { useUpdateUser } from "../../atoms/users";
 import { Region } from "../../shared";
@@ -30,8 +30,8 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
 
   const regions = createListCollection<Region>({
     items: Object.values(Region),
-    itemToString: i => i,
-    itemToValue: i => i,
+    itemToString: (i) => i,
+    itemToValue: (i) => i,
   });
 
   return (
@@ -100,7 +100,10 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
                       >
                         <Select.ItemText>{region}</Select.ItemText>
                         <Select.ItemIndicator>
-                          <CheckIcon className="h-5 w-5 absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[highlighted]:text-white" aria-hidden="true" />
+                          <CheckIcon
+                            className="h-5 w-5 absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[highlighted]:text-white"
+                            aria-hidden="true"
+                          />
                         </Select.ItemIndicator>
                       </Select.Item>
                     ))}
@@ -144,4 +147,4 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
       </ark.div>
     </ark.form>
   );
-} 
+}

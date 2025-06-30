@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-
+import { Region } from "../../shared";
 import Index from "./index";
 
 const meta = {
@@ -17,7 +17,7 @@ export const Default: Story = {
         id: 0,
         firstName: "John",
         lastName: "Connor",
-        region: "US",
+        region: Region.UnitedStates,
         isActive: true,
       },
     ],

@@ -1,24 +1,28 @@
 import { ark } from "@ark-ui/react/factory";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useDeleteUser, useUpdateUser, useUserById } from "../../atoms/users";
+import {
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useDeleteUser, useUserById } from "../../atoms/users";
+import UserForm from "../UserForm";
 
 export default function User({ id }: { id: number }) {
   const user = useUserById(id);
-  // const user = {
-  //   id: 1,
-  //   firstName: "Foo",
-  //   lastName: "Bar",
-  //   region: "US",
-  //   isActive: false,
-  // };
-  const updateUser = useUpdateUser();
   const deleteUser = useDeleteUser();
+  const [isEditing, setIsEditing] = useState(false);
+
   if (!user) {
     return null;
   }
 
-  const onEdit = () => updateUser(user);
+  const onEdit = () => setIsEditing(true);
+  const onEditDone = () => setIsEditing(false);
   const onDelete = () => deleteUser(id);
+
+  if (isEditing) {
+    return <UserForm user={user} onSave={onEditDone} onCancel={onEditDone} />;
+  }
 
   return (
     <ark.div className="bg-white rounded-xl shadow p-6 flex items-center justify-between gap-4">

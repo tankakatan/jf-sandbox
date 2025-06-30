@@ -1,10 +1,24 @@
 import { ark } from "@ark-ui/react/factory";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import type { UserType } from "../UserList";
+import { useDeleteUser, useUpdateUser, useUserById } from "../../atoms/users";
 
-export default function User({ user }: { user: UserType }) {
-  const handleEdit = () => {};
-  const handleDelete = () => {};
+export default function User({ id }: { id: number }) {
+  const user = useUserById(id);
+  // const user = {
+  //   id: 1,
+  //   firstName: "Foo",
+  //   lastName: "Bar",
+  //   region: "US",
+  //   isActive: false,
+  // };
+  const updateUser = useUpdateUser();
+  const deleteUser = useDeleteUser();
+  if (!user) {
+    return null;
+  }
+
+  const onEdit = () => updateUser(user);
+  const onDelete = () => deleteUser(id);
 
   return (
     <ark.div className="bg-white rounded-xl shadow p-6 flex items-center justify-between gap-4">
@@ -28,7 +42,7 @@ export default function User({ user }: { user: UserType }) {
           type="button"
           aria-label="Edit"
           className="p-2 rounded-full hover:bg-blue-100 text-blue-600 transition"
-          onClick={handleEdit}
+          onClick={onEdit}
         >
           <PencilSquareIcon className="w-5 h-5" />
         </ark.button>
@@ -36,7 +50,7 @@ export default function User({ user }: { user: UserType }) {
           type="button"
           aria-label="Delete"
           className="p-2 rounded-full hover:bg-red-100 text-red-600 transition"
-          onClick={handleDelete}
+          onClick={onDelete}
         >
           <TrashIcon className="w-5 h-5" />
         </ark.button>

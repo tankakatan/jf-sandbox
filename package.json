@@ -19,8 +19,10 @@
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.11",
     "classname": "^0.0.0",
+    "jotai": "^2.12.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.58.1",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   },

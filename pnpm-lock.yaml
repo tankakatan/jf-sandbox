@@ -14,9 +14,9 @@ dependencies:
   '@tailwindcss/vite':
     specifier: ^4.1.11
     version: 4.1.11(vite@7.0.0)
-  classname:
-    specifier: ^0.0.0
-    version: 0.0.0
+  classnames:
+    specifier: ^2.5.1
+    version: 2.5.1
   jotai:
     specifier: ^2.12.5
     version: 2.12.5(@types/react@19.1.8)(react@19.1.0)
@@ -43,6 +43,9 @@ devDependencies:
   '@storybook/react-vite':
     specifier: ^9.0.13
     version: 9.0.13(react-dom@19.1.0)(react@19.1.0)(storybook@9.0.13)(typescript@5.8.3)(vite@7.0.0)
+  '@types/classnames':
+    specifier: ^2.3.4
+    version: 2.3.4
   '@types/react':
     specifier: ^19.1.8
     version: 19.1.8
@@ -1184,6 +1187,13 @@ packages:
       '@babel/types': 7.27.7
     dev: true
 
+  /@types/classnames@2.3.4:
+    resolution: {integrity: sha512-dwmfrMMQb9ujX1uYGvB5ERDlOzBNywnZAZBtOe107/hORWP05ESgU4QyaanZMWYYfd2BzrG78y13/Bju8IQcMQ==}
+    deprecated: This is a stub types definition. classnames provides its own type definitions, so you do not need this installed.
+    dependencies:
+      classnames: 2.5.1
+    dev: true
+
   /@types/doctrine@0.0.9:
     resolution: {integrity: sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==}
     dev: true
@@ -2021,9 +2031,8 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
-  /classname@0.0.0:
-    resolution: {integrity: sha512-kkhsspEJdUW+VhuvNzb2sQf0KbafDPfd36dB1qf03Uu42dWZwMQzaQuyNkaRr5ir0ZiAN0+TlH/EOOfwb/aaXg==}
-    dev: false
+  /classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
 
   /color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}

@@ -68,7 +68,7 @@ export default function User({ id }: { id: number }) {
             </ark.button>
           </Dialog.Trigger>
           <Portal>
-            <Dialog.Backdrop className="fixed inset-0 bg-black/50" />
+            <Dialog.Backdrop className="fixed inset-0 bg-black/50 backdrop-blur-xs" />
             <Dialog.Positioner className="fixed inset-0 flex items-center justify-center">
               <Dialog.Content className="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm">
                 <Dialog.Title className="text-lg font-bold">

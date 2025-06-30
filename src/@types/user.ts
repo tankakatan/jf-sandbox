@@ -1,7 +1,9 @@
+import type { Region } from "../shared";
+
 export type User = {
   id: number;
   firstName: string;
   lastName: string;
-  region: string;
+  region: Region;
   isActive: boolean;
 };

@@ -1,23 +1,25 @@
+import { Region } from "../shared";
+
 export const users = [
   {
     id: 1,
     firstName: "Alice",
     lastName: "Smith",
-    region: "Europe",
+    region: Region.UnitedStates,
     isActive: true,
   },
   {
     id: 2,
     firstName: "Bob",
     lastName: "Johnson",
-    region: "Asia",
+    region: Region.Canada,
     isActive: false,
   },
   {
     id: 3,
     firstName: "Charlie",
     lastName: "Brown",
-    region: "America",
+    region: Region.UnitedKingdom,
     isActive: true,
   },
 ];

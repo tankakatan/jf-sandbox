@@ -11,13 +11,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    user: {
-      id: 0,
-      firstName: "John",
-      lastName: "Connor",
-      region: "US",
-      isActive: true,
-    },
-  },
+  args: {id: 0},
 };

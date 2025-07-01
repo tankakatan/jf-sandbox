@@ -1,9 +1,6 @@
 import { createListCollection, Field } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
-import {
-  CheckIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 import { Controller, useForm } from "react-hook-form";
 import type { User as UserType } from "../../@types";
@@ -123,7 +120,7 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
           name="region"
           rules={{
             required: "Region is required",
-            validate: v => !!v || "Region is required",
+            validate: (v) => !!v || "Region is required",
           }}
           render={({ field: { value, onChange } }) => (
             <FilterableSelect

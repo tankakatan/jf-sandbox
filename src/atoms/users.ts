@@ -16,7 +16,10 @@ const upsertUserAtom = atom(null, (get, set, user: User) => {
   if (!user.id || !list.some((u) => u.id === user.id)) {
     set(userListAtom, [{ ...user, id: Date.now() }, ...list]);
   } else {
-    set(userListAtom, list.map((u) => (u.id === user.id ? user : u)));
+    set(
+      userListAtom,
+      list.map((u) => (u.id === user.id ? user : u)),
+    );
   }
 });
 

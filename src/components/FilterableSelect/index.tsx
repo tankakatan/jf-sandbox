@@ -1,8 +1,12 @@
-import { useState, useMemo } from "react";
-import { createListCollection, Select, Field } from "@ark-ui/react";
+import { createListCollection, Field, Select } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
-import { ChevronUpDownIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  ChevronUpDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import cx from "classnames";
+import { useMemo, useState } from "react";
 
 interface FilterableSelectProps {
   value: string | undefined;
@@ -37,20 +41,19 @@ export default function FilterableSelect({
       }),
     [options],
   );
-  const filteredItems = useMemo(
-    () => {
-      const term = filter.trim().toLowerCase();
-      return term
-        ? collection.items.filter(i => i.toLowerCase().includes(term))
-        : collection.items;
-    },
-    [collection, filter],
-  );
+  const filteredItems = useMemo(() => {
+    const term = filter.trim().toLowerCase();
+    return term
+      ? collection.items.filter((i) => i.toLowerCase().includes(term))
+      : collection.items;
+  }, [collection, filter]);
 
   return (
-    <Field.Root invalid={error} className={cx("w-full")}> 
+    <Field.Root invalid={error} className={cx("w-full")}>
       {label && (
-        <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>{label}</Field.Label>
+        <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>
+          {label}
+        </Field.Label>
       )}
       <Select.Root
         collection={collection}
@@ -82,22 +85,26 @@ export default function FilterableSelect({
               "ring-gray-300",
               "focus:outline-none",
               "focus:ring-2",
-              error ? "border-red-500 focus:ring-red-500" : "focus:ring-blue-600",
+              error
+                ? "border-red-500 focus:ring-red-500"
+                : "focus:ring-blue-600",
               "sm:text-sm",
               "sm:leading-6",
             )}
           >
             <Select.ValueText placeholder={placeholder} />
-            <ark.span className={cx(
-              "pointer-events-none",
-              "absolute",
-              "inset-y-0",
-              "right-0",
-              "ml-3",
-              "flex",
-              "items-center",
-              "pr-2",
-            )}>
+            <ark.span
+              className={cx(
+                "pointer-events-none",
+                "absolute",
+                "inset-y-0",
+                "right-0",
+                "ml-3",
+                "flex",
+                "items-center",
+                "pr-2",
+              )}
+            >
               <ChevronUpDownIcon
                 className={cx("h-5", "w-5", "text-gray-400")}
                 aria-hidden="true"
@@ -124,7 +131,18 @@ export default function FilterableSelect({
               "sm:text-sm",
             )}
           >
-            <Field.Root className={cx("sticky", "top-0", "z-10", "bg-white", "px-0", "py-0", "flex", "items-center")}> 
+            <Field.Root
+              className={cx(
+                "sticky",
+                "top-0",
+                "z-10",
+                "bg-white",
+                "px-0",
+                "py-0",
+                "flex",
+                "items-center",
+              )}
+            >
               <Field.Label className="sr-only">Filter options</Field.Label>
               <Field.Input
                 type="text"
@@ -176,7 +194,9 @@ export default function FilterableSelect({
             </Field.Root>
             <Select.ItemGroup id="filterable-select">
               {filteredItems.length === 0 && (
-                <ark.div className={cx("px-3", "py-2", "text-gray-400", "text-sm")}>
+                <ark.div
+                  className={cx("px-3", "py-2", "text-gray-400", "text-sm")}
+                >
                   No options found
                 </ark.div>
               )}
@@ -224,4 +244,4 @@ export default function FilterableSelect({
       </Field.ErrorText>
     </Field.Root>
   );
-} 
+}

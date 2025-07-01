@@ -121,6 +121,10 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
         <Controller
           control={control}
           name="region"
+          rules={{
+            required: "Region is required",
+            validate: v => !!v || "Region is required",
+          }}
           render={({ field: { value, onChange } }) => (
             <Field.Root className={cx("w-full")} invalid={!!errors.region}>
               <Field.Label

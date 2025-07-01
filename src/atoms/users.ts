@@ -11,12 +11,14 @@ const userByIdAtom = atomFamily((id: number) =>
   atom((get) => get(userListAtom).find((u) => u.id === id)),
 );
 
-const updateUserAtom = atom(null, (get, set, updatedUser: User) =>
-  set(
-    userListAtom,
-    get(userListAtom).map((u) => (u.id === updatedUser.id ? updatedUser : u)),
-  ),
-);
+const upsertUserAtom = atom(null, (get, set, user: User) => {
+  const list = get(userListAtom);
+  if (!user.id || !list.some((u) => u.id === user.id)) {
+    set(userListAtom, [{ ...user, id: Date.now() }, ...list]);
+  } else {
+    set(userListAtom, list.map((u) => (u.id === user.id ? user : u)));
+  }
+});
 
 const deleteUserAtom = atom(null, (get, set, userId: number) =>
   set(
@@ -28,5 +30,5 @@ const deleteUserAtom = atom(null, (get, set, userId: number) =>
 // API:
 export const useUserList = () => useAtomValue(userListAtom);
 export const useUserById = (id: number) => useAtomValue(userByIdAtom(id));
-export const useUpdateUser = () => useSetAtom(updateUserAtom);
+export const useUpsertUser = () => useSetAtom(upsertUserAtom);
 export const useDeleteUser = () => useSetAtom(deleteUserAtom);

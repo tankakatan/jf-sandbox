@@ -8,7 +8,7 @@ import {
 import cx from "classnames";
 import { Controller, useForm } from "react-hook-form";
 import type { User as UserType } from "../../@types";
-import { useUpdateUser } from "../../atoms/users";
+import { useUpsertUser } from "../../atoms/users";
 import { Region } from "../../shared";
 
 interface UserFormProps {
@@ -27,10 +27,10 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
     defaultValues: user || { isActive: false },
     mode: "onBlur",
   });
-  const updateUser = useUpdateUser();
+  const upsertUser = useUpsertUser();
 
   const handleSave = (data: UserType) => {
-    updateUser({ ...user, ...data });
+    upsertUser({ ...user, ...data });
     onSave();
   };
 
@@ -58,13 +58,16 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
       <ark.div className={cx("flex-grow", "space-y-2")}>
         <ark.div className={cx("flex", "gap-2")}>
           <Field.Root className={cx("w-full")} invalid={!!errors.firstName}>
-            <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>
+            <Field.Label
+              className={cx("text-sm", "font-medium", "text-gray-700")}
+            >
               First Name
             </Field.Label>
             <Field.Input
               {...register("firstName", {
                 required: "First name is required",
-                validate: v => v && v.trim().length > 0 || "First name is required",
+                validate: (v) =>
+                  (v && v.trim().length > 0) || "First name is required",
               })}
               className={cx(
                 "mt-1",
@@ -77,20 +80,25 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
                 errors.firstName && "border-red-500 focus:ring-red-500",
               )}
               aria-invalid={!!errors.firstName}
-              aria-describedby={errors.firstName ? "firstName-error" : undefined}
+              aria-describedby={
+                errors.firstName ? "firstName-error" : undefined
+              }
             />
             <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
               First name cannot be empty
             </Field.ErrorText>
           </Field.Root>
           <Field.Root className={cx("w-full")} invalid={!!errors.lastName}>
-            <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>
+            <Field.Label
+              className={cx("text-sm", "font-medium", "text-gray-700")}
+            >
               Last Name
             </Field.Label>
             <Field.Input
               {...register("lastName", {
                 required: "Last name is required",
-                validate: v => v && v.trim().length > 0 || "Last name is required",
+                validate: (v) =>
+                  (v && v.trim().length > 0) || "Last name is required",
               })}
               className={cx(
                 "mt-1",
@@ -115,7 +123,9 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
           name="region"
           render={({ field: { value, onChange } }) => (
             <Field.Root className={cx("w-full")} invalid={!!errors.region}>
-              <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>
+              <Field.Label
+                className={cx("text-sm", "font-medium", "text-gray-700")}
+              >
                 Region
               </Field.Label>
               <Select.Root
@@ -147,7 +157,9 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
                       "ring-gray-300",
                       "focus:outline-none",
                       "focus:ring-2",
-                      errors.region ? "border-red-500 focus:ring-red-500" : "focus:ring-indigo-500",
+                      errors.region
+                        ? "border-red-500 focus:ring-red-500"
+                        : "focus:ring-indigo-500",
                       "sm:text-sm",
                       "sm:leading-6",
                     )}
@@ -235,7 +247,9 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
                   </Select.Content>
                 </Select.Positioner>
               </Select.Root>
-              <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
+              <Field.ErrorText
+                className={cx("text-red-600", "text-xs", "mt-1")}
+              >
                 Please specify user region
               </Field.ErrorText>
             </Field.Root>

@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { createListCollection, Select, Field } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
-import { ChevronUpDownIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ChevronUpDownIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 
 interface FilterableSelectProps {
@@ -38,12 +38,12 @@ export default function FilterableSelect({
     [options],
   );
   const filteredItems = useMemo(
-    () =>
-      filter.trim() === ""
-        ? collection.items
-        : collection.items.filter((item) =>
-            item.toLowerCase().includes(filter.trim().toLowerCase()),
-          ),
+    () => {
+      const term = filter.trim().toLowerCase();
+      return term
+        ? collection.items.filter(i => i.toLowerCase().includes(term))
+        : collection.items;
+    },
     [collection, filter],
   );
 
@@ -124,17 +124,9 @@ export default function FilterableSelect({
               "sm:text-sm",
             )}
           >
-            <ark.div
-              className={cx(
-                "sticky",
-                "top-0",
-                "z-10",
-                "bg-white",
-                "px-0",
-                "py-0",
-              )}
-            >
-              <ark.input
+            <Field.Root className={cx("sticky", "top-0", "z-10", "bg-white", "px-0", "py-0", "flex", "items-center")}> 
+              <Field.Label className="sr-only">Filter options</Field.Label>
+              <Field.Input
                 type="text"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
@@ -154,10 +146,34 @@ export default function FilterableSelect({
                   "focus:border-blue-600",
                   "sm:text-sm",
                   "outline-none",
+                  "placeholder-gray-400",
                 )}
                 style={{ boxShadow: "none" }}
               />
-            </ark.div>
+              {filter && (
+                <ark.button
+                  type="button"
+                  aria-label="Clear filter"
+                  onClick={() => setFilter("")}
+                  className={cx(
+                    "absolute",
+                    "right-2",
+                    "top-1/2",
+                    "-translate-y-1/2",
+                    "p-1",
+                    "rounded-full",
+                    "hover:bg-gray-100",
+                    "focus:outline-none",
+                    "focus:ring-2",
+                    "focus:ring-blue-600",
+                    "text-gray-400",
+                  )}
+                  tabIndex={0}
+                >
+                  <XMarkIcon className={cx("w-4", "h-4")} />
+                </ark.button>
+              )}
+            </Field.Root>
             <Select.ItemGroup id="filterable-select">
               {filteredItems.length === 0 && (
                 <ark.div className={cx("px-3", "py-2", "text-gray-400", "text-sm")}>

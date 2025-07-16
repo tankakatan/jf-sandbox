@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Region } from "@/entities/region/enums";
 import { useUpsertUser } from "@/entities/user/model/actions";
-import type { UserFormData, UserData } from "@/entities/user/types";
+import type { UserData, UserFormData } from "@/entities/user/types";
 import { FormView } from "@/entities/user/ui/Edit";
 
 export default function CreateUserForm({

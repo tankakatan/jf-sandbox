@@ -1,18 +1,21 @@
 import { ark } from "@ark-ui/react/factory";
+import { Field } from "@ark-ui/react/field";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
+import { type Control, Controller, type useForm } from "react-hook-form";
 import type { Region } from "@/entities/region/enums";
 import FilterableSelect from "@/shared/ui/FilterableSelect";
 import type { UserFormData } from "../types";
-import { Controller, type useForm, type Control } from "react-hook-form";
-import { Field } from "@ark-ui/react/field";
 
 interface FormViewProps {
   userId?: number;
   register: ReturnType<typeof useForm<UserFormData>>["register"];
   control: Control<UserFormData>;
   errors?: ReturnType<typeof useForm<UserFormData>>["formState"]["errors"];
-  onChange: (field: keyof UserFormData, value: UserFormData[typeof field]) => void;
+  onChange: (
+    field: keyof UserFormData,
+    value: UserFormData[typeof field],
+  ) => void;
   onSubmit: () => void;
   onCancel: () => void;
   regions: Region[];

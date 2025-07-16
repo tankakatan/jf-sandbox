@@ -5,7 +5,7 @@ import { users as defaultUserList } from "./fixtures";
 
 export const userListAtom = atomWithStorage<User[]>("users", defaultUserList);
 export const userByIdAtom = atomFamily((id: number) =>
-  atom(get => (get(userListAtom) as User[]).find((u) => u.id === id)),
+  atom((get) => (get(userListAtom) as User[]).find((u) => u.id === id)),
 );
 
 export const upsertUserAtom = atom(null, (get, set, user: UserData) => {

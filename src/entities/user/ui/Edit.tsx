@@ -1,45 +1,38 @@
-import { createListCollection, Field } from "@ark-ui/react";
 import { ark } from "@ark-ui/react/factory";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
-import { Controller, useForm } from "react-hook-form";
-import type { User as UserType } from "../../@types";
-import { useUpsertUser } from "../../atoms/users";
-import { Region } from "../../shared";
-import FilterableSelect from "../FilterableSelect";
+import type { Region } from "@/entities/region/enums";
+import FilterableSelect from "@/shared/ui/FilterableSelect";
+import type { UserFormData } from "../types";
+import { Controller, type useForm, type Control } from "react-hook-form";
+import { Field } from "@ark-ui/react/field";
 
-interface UserFormProps {
-  user?: UserType;
-  onSave: () => void;
+interface FormViewProps {
+  userId?: number;
+  register: ReturnType<typeof useForm<UserFormData>>["register"];
+  control: Control<UserFormData>;
+  errors?: ReturnType<typeof useForm<UserFormData>>["formState"]["errors"];
+  onChange: (field: keyof UserFormData, value: UserFormData[typeof field]) => void;
+  onSubmit: () => void;
   onCancel: () => void;
+  regions: Region[];
 }
 
-export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<UserType>({
-    defaultValues: user || { isActive: false },
-    mode: "onBlur",
-  });
-  const upsertUser = useUpsertUser();
-
-  const handleSave = (data: UserType) => {
-    upsertUser({ ...user, ...data });
-    onSave();
-  };
-
-  const regions = createListCollection<Region>({
-    items: Object.values(Region),
-    itemToString: (i) => i,
-    itemToValue: (i) => i,
-  });
-
+export function FormView({
+  userId,
+  register,
+  control,
+  errors = {},
+  onSubmit,
+  onCancel,
+  regions,
+}: FormViewProps) {
   return (
     <ark.form
-      onSubmit={handleSubmit(handleSave)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
       className={cx(
         "bg-white",
         "rounded-xl",
@@ -126,7 +119,7 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
             <FilterableSelect
               value={value}
               onChange={onChange}
-              options={regions.items}
+              options={regions}
               label="Region"
               placeholder="Select a region"
               error={!!errors.region}
@@ -139,7 +132,7 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
           <Field.Input
             {...register("isActive")}
             type="checkbox"
-            id={`isActive-${user?.id || "new"}`}
+            id={`isActive-${userId || "new"}`}
             className={cx(
               "h-4",
               "w-4",
@@ -150,40 +143,28 @@ export default function UserForm({ user, onSave, onCancel }: UserFormProps) {
             )}
           />
           <Field.Label
-            htmlFor={`isActive-${user?.id || "new"}`}
+            htmlFor={`isActive-${userId || "new"}`}
             className={cx("text-sm", "text-gray-900")}
           >
             Active
           </Field.Label>
         </Field.Root>
       </ark.div>
-      <ark.div className={cx("flex", "gap-2")}>
+      <ark.div className="flex gap-2">
         <ark.button
           type="submit"
           aria-label="Save"
-          className={cx(
-            "p-2",
-            "rounded-full",
-            "hover:bg-green-100",
-            "text-green-600",
-            "transition",
-          )}
+          className="p-2 rounded-full hover:bg-green-100 text-green-600 transition"
         >
-          <CheckIcon className={cx("w-5", "h-5")} />
+          <CheckIcon className="w-5 h-5" />
         </ark.button>
         <ark.button
           type="button"
           aria-label="Cancel"
-          className={cx(
-            "p-2",
-            "rounded-full",
-            "hover:bg-gray-100",
-            "text-gray-600",
-            "transition",
-          )}
+          className="p-2 rounded-full hover:bg-gray-100 text-gray-600 transition"
           onClick={onCancel}
         >
-          <XMarkIcon className={cx("w-5", "h-5")} />
+          <XMarkIcon className="w-5 h-5" />
         </ark.button>
       </ark.div>
     </ark.form>

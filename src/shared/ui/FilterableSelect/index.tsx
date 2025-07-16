@@ -1,4 +1,6 @@
-import { createListCollection, Field, Select } from "@ark-ui/react";
+import { createListCollection } from "@ark-ui/react";
+import { Select } from "@ark-ui/react/select";
+import { Field } from "@ark-ui/react/field";
 import { ark } from "@ark-ui/react/factory";
 import {
   CheckIcon,

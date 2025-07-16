@@ -1,4 +1,4 @@
-import { Region } from "../shared";
+import { Region } from "@/entities/region/enums";
 
 export const users = [
   {

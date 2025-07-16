@@ -2,11 +2,11 @@ import { ark } from "@ark-ui/react/factory";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 import { useState } from "react";
-import type { User as UserType } from "../../@types";
-import User from "../User";
-import UserForm from "../UserForm";
+import type { User } from "@/entities/user/types";
+import UserView from "@/entities/user/ui/View";
+import CreateUserForm from "@/features/user/create";
 
-export default function UserList({ users }: { users: UserType[] }) {
+export default function UserList({ users }: { users: User[] }) {
   const [isCreating, setIsCreating] = useState(false);
 
   return (
@@ -35,14 +35,13 @@ export default function UserList({ users }: { users: UserType[] }) {
         </ark.button>
       </ark.div>
       {isCreating && (
-        <UserForm
-          user={undefined}
+        <CreateUserForm
           onSave={() => setIsCreating(false)}
           onCancel={() => setIsCreating(false)}
         />
       )}
       {users.map((user) => (
-        <User key={user.id} id={user.id} />
+        <UserView key={user.id} id={user.id} />
       ))}
     </ark.div>
   );

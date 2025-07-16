@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { users } from "../../fixtures";
-import Index from "./index";
+import { users } from "@/entities/user/model/fixtures";
+import UserList from "./index";
 
 const meta = {
-  component: Index,
-} satisfies Meta<typeof Index>;
+  component: UserList,
+} satisfies Meta<typeof UserList>;
 
 export default meta;
 

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import Index from "./index";
+import View from "./View";
 
 const meta = {
-  component: Index,
-} satisfies Meta<typeof Index>;
+  component: View,
+} satisfies Meta<typeof View>;
 
 export default meta;
 

@@ -4,10 +4,14 @@ import cx from "classnames";
 import type { Region } from "@/entities/region/enums";
 import FilterableSelect from "@/shared/ui/FilterableSelect";
 import type { UserFormData } from "../types";
+import { Controller, type useForm, type Control } from "react-hook-form";
+import { Field } from "@ark-ui/react/field";
 
 interface FormViewProps {
-  values: UserFormData;
-  errors?: Partial<Record<keyof UserFormData, string>>;
+  userId?: number;
+  register: ReturnType<typeof useForm<UserFormData>>["register"];
+  control: Control<UserFormData>;
+  errors?: ReturnType<typeof useForm<UserFormData>>["formState"]["errors"];
   onChange: (field: keyof UserFormData, value: UserFormData[typeof field]) => void;
   onSubmit: () => void;
   onCancel: () => void;
@@ -15,9 +19,10 @@ interface FormViewProps {
 }
 
 export function FormView({
-  values,
+  userId,
+  register,
+  control,
   errors = {},
-  onChange,
   onSubmit,
   onCancel,
   regions,
@@ -42,72 +47,108 @@ export function FormView({
     >
       <ark.div className={cx("flex-grow", "space-y-2")}>
         <ark.div className={cx("flex", "gap-2")}>
-          <ark.div className="w-full">
-            <ark.label
-              htmlFor="firstName-input"
-              className="text-sm font-medium text-gray-700"
+          <Field.Root className={cx("w-full")} invalid={!!errors.firstName}>
+            <Field.Label
+              className={cx("text-sm", "font-medium", "text-gray-700")}
             >
               First Name
-            </ark.label>
-            <ark.input
-              id="firstName-input"
-              value={values.firstName}
-              onChange={(e) => onChange("firstName", e.target.value)}
+            </Field.Label>
+            <Field.Input
+              {...register("firstName", {
+                required: "First name is required",
+                validate: (v) =>
+                  (v && v.trim().length > 0) || "First name is required",
+              })}
               className={cx(
-                "mt-1 block w-full px-2 py-1 border rounded-md",
+                "mt-1",
+                "block",
+                "w-full",
+                "px-2",
+                "py-1",
+                "border",
+                "rounded-md",
                 errors.firstName && "border-red-500 focus:ring-red-500",
               )}
               aria-invalid={!!errors.firstName}
+              aria-describedby={
+                errors.firstName ? "firstName-error" : undefined
+              }
             />
-            {errors.firstName && (
-              <ark.div className="text-red-600 text-xs mt-1">
-                {errors.firstName}
-              </ark.div>
-            )}
-          </ark.div>
-          <ark.div className="w-full">
-            <ark.label
-              htmlFor="lastName-input"
-              className="text-sm font-medium text-gray-700"
+            <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
+              First name cannot be empty
+            </Field.ErrorText>
+          </Field.Root>
+          <Field.Root className={cx("w-full")} invalid={!!errors.lastName}>
+            <Field.Label
+              className={cx("text-sm", "font-medium", "text-gray-700")}
             >
               Last Name
-            </ark.label>
-            <ark.input
-              id="lastName-input"
-              value={values.lastName}
-              onChange={(e) => onChange("lastName", e.target.value)}
+            </Field.Label>
+            <Field.Input
+              {...register("lastName", {
+                required: "Last name is required",
+                validate: (v) =>
+                  (v && v.trim().length > 0) || "Last name is required",
+              })}
               className={cx(
-                "mt-1 block w-full px-2 py-1 border rounded-md",
+                "mt-1",
+                "block",
+                "w-full",
+                "px-2",
+                "py-1",
+                "border",
+                "rounded-md",
                 errors.lastName && "border-red-500 focus:ring-red-500",
               )}
               aria-invalid={!!errors.lastName}
+              aria-describedby={errors.lastName ? "lastName-error" : undefined}
             />
-            {errors.lastName && (
-              <ark.div className="text-red-600 text-xs mt-1">
-                {errors.lastName}
-              </ark.div>
-            )}
-          </ark.div>
+            <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
+              Last name cannot be empty
+            </Field.ErrorText>
+          </Field.Root>
         </ark.div>
-        <FilterableSelect
-          value={values.region}
-          onChange={val => onChange("region", val as Region)}
-          options={regions}
-          label="Region"
-          placeholder="Select a region"
-          error={!!errors.region}
-          errorText={errors.region}
+        <Controller
+          control={control}
           name="region"
+          rules={{
+            required: "Region is required",
+            validate: (v) => !!v || "Region is required",
+          }}
+          render={({ field: { value, onChange } }) => (
+            <FilterableSelect
+              value={value}
+              onChange={onChange}
+              options={regions}
+              label="Region"
+              placeholder="Select a region"
+              error={!!errors.region}
+              errorText="Please specify user region"
+              name="region"
+            />
+          )}
         />
-        <ark.label htmlFor="isActive-input" className="flex items-center gap-2">
-          <ark.input
-            id="isActive-input"
+        <Field.Root className={cx("flex", "items-center", "gap-2")}>
+          <Field.Input
+            {...register("isActive")}
             type="checkbox"
-            checked={values.isActive}
-            onChange={(e) => onChange("isActive", e.target.checked)}
+            id={`isActive-${userId || "new"}`}
+            className={cx(
+              "h-4",
+              "w-4",
+              "rounded",
+              "border-gray-300",
+              "text-indigo-600",
+              "focus:ring-indigo-600",
+            )}
           />
-          Active
-        </ark.label>
+          <Field.Label
+            htmlFor={`isActive-${userId || "new"}`}
+            className={cx("text-sm", "text-gray-900")}
+          >
+            Active
+          </Field.Label>
+        </Field.Root>
       </ark.div>
       <ark.div className="flex gap-2">
         <ark.button

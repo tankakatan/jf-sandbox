@@ -19,8 +19,9 @@ export default function UpdateUserForm({
   const regions = Object.values(Region);
 
   const {
+    register,
+    control,
     handleSubmit,
-    watch,
     setValue,
     formState: { errors },
   } = useForm<UserFormData>({
@@ -28,13 +29,13 @@ export default function UpdateUserForm({
     mode: "onBlur",
   });
 
-  const values = watch();
-
   if (!user) return null;
 
   return (
     <FormView
-      values={values}
+      userId={user.id}
+      register={register}
+      control={control}
       errors={Object.fromEntries(
         Object.entries(errors).map(([k, v]) => [k, v?.message || ""]),
       )}

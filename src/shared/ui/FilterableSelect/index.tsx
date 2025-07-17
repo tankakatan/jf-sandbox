@@ -166,7 +166,7 @@ export default function FilterableSelect({
                   "sm:text-sm",
                   "outline-none",
                   "placeholder-gray-400",
-                  "shadow-none"
+                  "shadow-none",
                 )}
               />
               {filter && (
@@ -193,7 +193,10 @@ export default function FilterableSelect({
                 </ark.button>
               )}
             </Field.Root>
-            <Select.ItemGroup id="filterable-select" className={cx("border-0", "ring-0")}>
+            <Select.ItemGroup
+              id="filterable-select"
+              className={cx("border-0", "ring-0")}
+            >
               {filteredItems.length === 0 && (
                 <ark.div
                   className={cx("px-3", "py-2", "text-gray-400", "text-sm")}

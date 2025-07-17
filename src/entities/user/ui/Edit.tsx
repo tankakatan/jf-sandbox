@@ -1,6 +1,6 @@
+import { Checkbox } from "@ark-ui/react/checkbox";
 import { ark } from "@ark-ui/react/factory";
 import { Field } from "@ark-ui/react/field";
-import { Checkbox } from "@ark-ui/react/checkbox";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 import { type Control, Controller, type useForm } from "react-hook-form";
@@ -143,8 +143,13 @@ export function FormView({
               <Checkbox.Root
                 id={`isActive-${userId || "new"}`}
                 checked={value}
-                onCheckedChange={e => onChange(e.checked)}
-                className={cx("flex", "items-center", "gap-2", "cursor-pointer")}
+                onCheckedChange={(e) => onChange(e.checked)}
+                className={cx(
+                  "flex",
+                  "items-center",
+                  "gap-2",
+                  "cursor-pointer",
+                )}
               >
                 <Checkbox.Control
                   className={cx(
@@ -157,15 +162,22 @@ export function FormView({
                     "transition-colors",
                     "flex",
                     "items-center",
-                    "justify-center"
+                    "justify-center",
                   )}
                 >
                   <Checkbox.Indicator>
-                    <CheckIcon className={cx("w-4", "h-4", "text-blue-600","stroke-2")} />
+                    <CheckIcon
+                      className={cx("w-4", "h-4", "text-blue-600", "stroke-2")}
+                    />
                   </Checkbox.Indicator>
                 </Checkbox.Control>
                 <Checkbox.Label
-                  className={cx("text-sm", "ml-1", "text-gray-600", "cursor-pointer")}
+                  className={cx(
+                    "text-sm",
+                    "ml-1",
+                    "text-gray-600",
+                    "cursor-pointer",
+                  )}
                 >
                   Active
                 </Checkbox.Label>
@@ -181,7 +193,7 @@ export function FormView({
           aria-label="Save"
           className="p-2 rounded-full hover:bg-green-100 text-green-600 transition"
         >
-          <CheckIcon className={cx("w-5", "h-5")}/>
+          <CheckIcon className={cx("w-5", "h-5")} />
         </ark.button>
         <ark.button
           type="button"

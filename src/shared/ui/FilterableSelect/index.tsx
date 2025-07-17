@@ -20,6 +20,7 @@ interface FilterableSelectProps {
   errorText?: string;
   name?: string;
   disabled?: boolean;
+  className?: string;
 }
 
 export default function FilterableSelect({
@@ -32,6 +33,7 @@ export default function FilterableSelect({
   errorText,
   name,
   disabled,
+  className,
 }: FilterableSelectProps) {
   const [filter, setFilter] = useState("");
   const collection = useMemo(
@@ -51,9 +53,9 @@ export default function FilterableSelect({
   }, [collection, filter]);
 
   return (
-    <Field.Root invalid={error} className={cx("w-full")}>
+    <Field.Root invalid={error} className={cx("w-full", className)}>
       {label && (
-        <Field.Label className={cx("text-sm", "font-medium", "text-gray-700")}>
+        <Field.Label className={cx("text-sm", "font-medium", "text-gray-600")}>
           {label}
         </Field.Label>
       )}
@@ -84,7 +86,7 @@ export default function FilterableSelect({
               "shadow-sm",
               "ring-1",
               "ring-inset",
-              "ring-gray-300",
+              "ring-gray-400",
               "focus:outline-none",
               "focus:ring-2",
               error
@@ -128,7 +130,7 @@ export default function FilterableSelect({
               "text-base",
               "shadow-lg",
               "ring-1",
-              "ring-black",
+              "ring-gray-600",
               "focus:outline-none",
               "sm:text-sm",
             )}
@@ -154,21 +156,18 @@ export default function FilterableSelect({
                 className={cx(
                   "w-full",
                   "rounded-t-md",
-                  "border-0",
-                  "border-b",
                   "border-gray-300",
                   "bg-white",
                   "py-1.5",
                   "px-3",
                   "text-gray-900",
-                  "focus:ring-2",
-                  "focus:ring-blue-600",
-                  "focus:border-blue-600",
+                  "ring-1",
+                  "ring-blue-600",
                   "sm:text-sm",
                   "outline-none",
                   "placeholder-gray-400",
+                  "shadow-none"
                 )}
-                style={{ boxShadow: "none" }}
               />
               {filter && (
                 <ark.button
@@ -194,7 +193,7 @@ export default function FilterableSelect({
                 </ark.button>
               )}
             </Field.Root>
-            <Select.ItemGroup id="filterable-select">
+            <Select.ItemGroup id="filterable-select" className={cx("border-0", "ring-0")}>
               {filteredItems.length === 0 && (
                 <ark.div
                   className={cx("px-3", "py-2", "text-gray-400", "text-sm")}

@@ -1,5 +1,6 @@
 import { ark } from "@ark-ui/react/factory";
 import { Field } from "@ark-ui/react/field";
+import { Checkbox } from "@ark-ui/react/checkbox";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import cx from "classnames";
 import { type Control, Controller, type useForm } from "react-hook-form";
@@ -52,7 +53,7 @@ export function FormView({
         <ark.div className={cx("flex", "gap-2")}>
           <Field.Root className={cx("w-full")} invalid={!!errors.firstName}>
             <Field.Label
-              className={cx("text-sm", "font-medium", "text-gray-700")}
+              className={cx("text-sm", "font-medium", "text-gray-600")}
             >
               First Name
             </Field.Label>
@@ -69,6 +70,7 @@ export function FormView({
                 "px-2",
                 "py-1",
                 "border",
+                "border-gray-400",
                 "rounded-md",
                 errors.firstName && "border-red-500 focus:ring-red-500",
               )}
@@ -77,13 +79,13 @@ export function FormView({
                 errors.firstName ? "firstName-error" : undefined
               }
             />
-            <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
+            <Field.ErrorText className={cx("text-red-600", "text-xs")}>
               First name cannot be empty
             </Field.ErrorText>
           </Field.Root>
           <Field.Root className={cx("w-full")} invalid={!!errors.lastName}>
             <Field.Label
-              className={cx("text-sm", "font-medium", "text-gray-700")}
+              className={cx("text-sm", "font-medium", "text-gray-600")}
             >
               Last Name
             </Field.Label>
@@ -100,13 +102,14 @@ export function FormView({
                 "px-2",
                 "py-1",
                 "border",
+                "border-gray-400",
                 "rounded-md",
                 errors.lastName && "border-red-500 focus:ring-red-500",
               )}
               aria-invalid={!!errors.lastName}
               aria-describedby={errors.lastName ? "lastName-error" : undefined}
             />
-            <Field.ErrorText className={cx("text-red-600", "text-xs", "mt-1")}>
+            <Field.ErrorText className={cx("text-red-600", "text-xs")}>
               Last name cannot be empty
             </Field.ErrorText>
           </Field.Root>
@@ -128,30 +131,49 @@ export function FormView({
               error={!!errors.region}
               errorText="Please specify user region"
               name="region"
+              className={cx("mb-4")}
             />
           )}
         />
-        <Field.Root className={cx("flex", "items-center", "gap-2")}>
-          <Field.Input
-            {...register("isActive")}
-            type="checkbox"
-            id={`isActive-${userId || "new"}`}
-            className={cx(
-              "h-4",
-              "w-4",
-              "rounded",
-              "border-gray-300",
-              "text-indigo-600",
-              "focus:ring-indigo-600",
-            )}
-          />
-          <Field.Label
-            htmlFor={`isActive-${userId || "new"}`}
-            className={cx("text-sm", "text-gray-900")}
-          >
-            Active
-          </Field.Label>
-        </Field.Root>
+        <Controller
+          control={control}
+          name="isActive"
+          render={({ field: { value, onChange } }) => (
+            <Field.Root>
+              <Checkbox.Root
+                id={`isActive-${userId || "new"}`}
+                checked={value}
+                onCheckedChange={e => onChange(e.checked)}
+                className={cx("flex", "items-center", "gap-2", "cursor-pointer")}
+              >
+                <Checkbox.Control
+                  className={cx(
+                    "h-5",
+                    "w-5",
+                    "border",
+                    "rounded",
+                    "border-gray-400",
+                    "bg-white",
+                    "transition-colors",
+                    "flex",
+                    "items-center",
+                    "justify-center"
+                  )}
+                >
+                  <Checkbox.Indicator>
+                    <CheckIcon className={cx("w-4", "h-4", "text-blue-600","stroke-2")} />
+                  </Checkbox.Indicator>
+                </Checkbox.Control>
+                <Checkbox.Label
+                  className={cx("text-sm", "ml-1", "text-gray-600", "cursor-pointer")}
+                >
+                  Active
+                </Checkbox.Label>
+                <Checkbox.HiddenInput />
+              </Checkbox.Root>
+            </Field.Root>
+          )}
+        />
       </ark.div>
       <ark.div className="flex gap-2">
         <ark.button
@@ -159,7 +181,7 @@ export function FormView({
           aria-label="Save"
           className="p-2 rounded-full hover:bg-green-100 text-green-600 transition"
         >
-          <CheckIcon className="w-5 h-5" />
+          <CheckIcon className={cx("w-5", "h-5")}/>
         </ark.button>
         <ark.button
           type="button"
